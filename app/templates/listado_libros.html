@@ -1,0 +1,53 @@
+{% extends './body.html'%}
+
+{% block title%} Libros disponibles {% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block container %}
+
+
+<div class="row">
+    {%if data.compras | length > 0 %}
+    
+    <div class="card madre mb-4 p-2 shadow-sm mt-4" style="width: 100%; overflow-y: auto;">  <!-- Tarjeta madre que abarca todas las compras -->
+        <div class="card-header text-center">
+            <h3 > {{data.titulo}}</h3>
+        </div>
+      
+        <div class="card madre mb-3 p-2 shadow-sm mt-4" style="width: 95%; overflow-y: auto; margin: 0 auto;">
+
+        <div class="card-body">
+            
+            <div class="row">
+                
+                {% for c in data.compras %}
+                <div class="col-sm-12 col-md-6">
+                    <div class="card mb-3 mx-2  mt-4 ml-5" style="max-width: 400px;">
+                      <div class="row g-0">
+                        <div class="col-md-4">
+                        {% set url = 'img/portadas/' + c.libro.portada %}
+                        <img class="card-img-top" src="{{ url_for('static', filename=url) }}" class="img-fluid rounded-start" style="height: 100%;"
+                            alt="{{ c.libro.titulo }}"> </div>
+                            <div class="col-md-8">
+                            <div class="card-body">
+                            <h5 class="card-title">{{ c.libro.titulo }} <span style="float: right;">$ {{ c.libro.precio}} </span></h5>
+                            <p class="card-text">Comprado: {{ c.formatted_date() }}</p>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {%else%}
+    <div class="col-sm-12 col col-md-12 col-lg-12 col-xl-12">
+        <h2>A&uacute;n no existen compras realizadas</h2>
+    </div>
+    {%endif%}
+</div>
+{% endblock %}

@@ -1,0 +1,175 @@
+{% extends './body.html'%}
+
+{% block title%} Index {% endblock %}
+
+{%block customCSS%}
+<style>
+  .my-custom-border {
+    border: 2px #38B000; /* Define un borde de 3px de grosor, punteado, de color */
+    border-radius: 8px; /* Ajusta el radio de borde para bordes redondeados */
+  }
+
+  .round_table {
+    border-collapse:separate;
+    border-spacing: 10;
+    border-radius:10px;
+    -moz-border-radius:10px;
+    -webkit-border-radius: 5px;    
+}
+
+</style>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+
+{%endblock%}
+
+{% block container %}
+<div class="row">
+  <div class="col-sm-12 col col-md-12 col-lg-12 col-xl-12">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong style="font: size 14px;">{{message}}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {%endfor%}
+    {%endif%}
+    {%endwith%}
+  </div>
+</div>
+<div class="card madre mb-4 p-2 shadow-sm " style="width: 100%; overflow-y: auto;">  <!-- Tarjeta madre que abarca todas las compras -->
+  <div class="card-header text-center">
+    <h3 style="color:#000">  {{data.titulo}}</h3>
+  </div>
+  <div class="card-body">
+<div class="row">
+  <div class="col-sm-12 col col-md-12 col-lg-12 col-xl-12">
+  </div>
+  {% if current_user.tipousuario.id == 1 %}
+  {% if data.libros_vendidos | length > 0 %}
+  <div class="col-sm-12 col col-md-12 col-lg-12 col-xl-12">
+
+    <div class="table-responsive round_table"  >
+      <table class="border table tabla table-striped table-bordered" >
+        <thead style="background-color: #38B000;  border-color: #38B000; color:#fff; ">
+          <tr style=" border-color: #38B000;">
+            <th><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ol" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5"/>
+              <path d="M1.713 11.865v-.474H2c.217 0 .363-.137.363-.317 0-.185-.158-.31-.361-.31-.223 0-.367.152-.373.31h-.59c.016-.467.373-.787.986-.787.588-.002.954.291.957.703a.595.595 0 0 1-.492.594v.033a.615.615 0 0 1 .569.631c.003.533-.502.8-1.051.8-.656 0-1-.37-1.008-.794h.582c.008.178.186.306.422.309.254 0 .424-.145.422-.35-.002-.195-.155-.348-.414-.348h-.3zm-.004-4.699h-.604v-.035c0-.408.295-.844.958-.844.583 0 .96.326.96.756 0 .389-.257.617-.476.848l-.537.572v.03h1.054V9H1.143v-.395l.957-.99c.138-.142.293-.304.293-.508 0-.18-.147-.32-.342-.32a.33.33 0 0 0-.342.338zM2.564 5h-.635V2.924h-.031l-.598.42v-.567l.629-.443h.635z"/>
+            </svg></th>
+            <th>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+              <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
+            </svg>
+            Libro 
+          </th>
+            <th>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-data" viewBox="0 0 16 16">
+                <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5z"/>
+                <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5z"/>
+                <path d="M10 7a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0zm4-3a1 1 0 0 0-1 1v3a1 1 0 1 0 2 0V9a1 1 0 0 0-1-1"/>
+              </svg>
+              Unidades Vendidas
+
+            </th>
+            <th>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-stack" viewBox="0 0 16 16">
+                <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+                <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z"/>
+              </svg>
+              Precio Unit. 
+            </th>
+            <th>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-stack" viewBox="0 0 16 16">
+                <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+                <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z"/>
+              </svg>
+              Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% set contador = namespace(total=0) %}
+          {% for l in data.libros_vendidos %}
+          <tr>
+            <td style="border-color: #38B000;">{{ loop.index }}</td>
+            <td style="border-color: #38B000;">{{ l.titulo }}</td>
+            <td style="border-color: #38B000;">{{ l.unidades_vendidas }}</td>
+            <td  style="border-color: #38B000;">${{ l.precio }}</td>
+            <td style="border-color: #38B000;">${{ (l.precio * l.unidades_vendidas) }}</td>
+          </tr>
+          {% set contador.total = contador.total + (l.precio * l.unidades_vendidas) %}
+          {% endfor %}
+          <tr>
+            <td style=" border-color: #38B000; "colspan="4" > 
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-stack" viewBox="0 0 16 16">
+                <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+                <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z"/>
+              </svg>
+              <strong class=" mx-auto text-center" >TOTAL DE LAS UNIDADES VENDIDAS</strong> 
+            </td>
+
+            <td style=" border-color: #38B000; "colspan="4" >${{ contador.total }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  {% else %}
+  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <h2>A&uacute;n no existen libros vendidos...</h2>
+  </div>
+</div>
+</div>
+</div>
+
+{% endif %}
+
+
+{% else %}
+<div class="card madre mb-4 p-2 shadow-sm " style="width: 100%; overflow-y: auto;">  <!-- Tarjeta madre que abarca todas las compras -->
+ 
+  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="card-body">
+      
+      <div class="row">
+        {% for l in data.libros %}
+        <div class="col-sm-12 col-md-6">
+          <div class="card mb-3 mx-2" style="max-width: 500px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                {% set url = 'img/portadas/' + l.portada %}
+                <img src="{{ url_for('static', filename=url) }}" alt="{{ l.titulo }}" class="img-fluid rounded-start" style="height: 100%;">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title libros">{{ l.titulo }} <span style="float: right;">$ {{ l.precio }}</span></h5>
+                  <p class="card-text">{{ l.autor.nombre_completo() }}</p>
+                  <button id="{{ l.isbn }}" class="btn btn-block btnComprarLibro" style="background-color:#38B000; color:#eee;">Comprar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+    <input type="hidden" name="csrf-token" value="{{ csrf_token() }}">
+    {% endif %}
+    {% endblock %}
+
+    
+  </div>
+</div>
+</div>
+{% block customJS %}
+<script src="{{ url_for('static', filename='lib/sweetalert2-9.10.0/sweetalert2.all.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/notificacionSwal.js') }}"></script>
+<script src="{{ url_for('static', filename='js/listado_libros.js') }}"></script>
+<script src="{{ url_for('static', filename='js/busqueda.js') }}"></script>
+
+
+
+
+{% endblock %}

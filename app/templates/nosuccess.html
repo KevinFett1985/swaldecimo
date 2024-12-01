@@ -1,0 +1,18 @@
+{% extends './body.html'%}
+
+{% block title%} Imagen no subida {% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block container %}
+
+<div class="row">
+<div class="card madre mb-4 p-2 shadow-sm mt-4" style="width: 100%; overflow-y: auto;">  <!-- Tarjeta madre que abarca todas las compras -->
+    <div class="card-header text-center">
+        <h3>¡La imagen no se ha subido de manera exitosa!</h3>
+    </div>
+</div>
+</div>
+{% endblock %}

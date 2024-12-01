@@ -1,0 +1,16 @@
+{% extends './body.html'%}
+
+{% block title%} Index {% endblock %}
+
+{% block container %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center">
+            <h1>Ha ocurrido un error, lo sentimos mucho.</h1>
+            <img class="mb-4" width="100" height="100" src="{{url_for('static', filename='img/error.png')}}" alt="Error">
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

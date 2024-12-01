@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWAL</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='lib/bootstrap-4.5.3-dist/css/bootstrap.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/flask.svg') }}">
+    <style>
+        .navbar {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .navbar-brand {
+            margin-right: 1rem;
+        }
+        .navbar-collapse {
+            flex-grow: 1;
+        }
+        .form-search {
+            margin-right: auto;
+        }
+        .btn-outline-white {
+            color: #fff;  /* Texto blanco */
+            border-color: #fff;  /* Borde blanco */
+        }
+        /* Estilos para las tarjetas madre */
+        .card-madre {
+            margin: 10px; /* Ajusta el margen según tus preferencias */
+        }
+        /* Estilos para la fila */
+        .row-con-margin {
+            margin: 15px; /* Ajusta el margen según tus preferencias */
+        }
+        /* Estilos para el texto "SWAL" */
+        .swal-text {
+            background-image: linear-gradient(to right, #38B000, #006400); /* Gradiente lineal con el color 38B000 */
+            color: white; /* Color del texto blanco */
+            display: inline-block; /* Mostrar como bloque en línea */
+            padding: 10px 20px; /* Espaciado interno */
+            border-radius: 5px; /* Borde redondeado */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--BARRA DE NAVEGACIÓN-->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color:#38B000;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="{{url_for('static', filename='img/logo.png')}}" alt="" width="70" height="40">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <form class="form-inline form-search my-2 my-lg-0 mr-auto">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search" id="buscador" style="width: 830px;">
+                </form>
+
+                
+                <div class="text-right">
+                    <a href="{{ url_for('login') }}" class="btn btn-outline-white my-2 my-sm-0 m-2">Iniciar sesión</a>
+                </div>
+                <div class="text-right">
+                    <a  href="{{url_for('register')}}" class="btn btn-outline-white my-2 my-sm-0">Registrarse</a>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <div class="card mt-4 row-con-margin" style=" border-color: #38B000;">
+        <div class="pricing-header px-3  pt-md-5 pb-md-4 mx-auto text-center">
+            <strong class="display-4 font-weight-bold swal-text ">SWAL</strong>
+            <p class="lead">Bienvenido a nuestra librería en línea. Explora nuestra amplia selección de libros y encuentra tus próximas lecturas favoritas. ¡Disfruta de la magia de las palabras!</p>
+        </div>
+    </div>
+      
+    <!--TABLA DE LIBROS DISPONIBLES-->
+    <div class="row row-con-margin">
+        <div class="col">
+            <div class="card madre mb-4 p-2 shadow-sm mt-4" style="width: 100%; overflow-y: auto;">  <!-- Tarjeta madre que abarca todas las compras -->
+                <div class="card-header text-center mb-3">
+                    <h3>{{data.titulo}}</h3>
+                </div>
+                <div class="card madre mb-4 p-2 shadow-sm" style="width: 100%; overflow-y: auto;">
+                    <div class="container">
+                        <div class="row">
+                            {% for l in data.libros %}
+                            <div class="col-sm-12 col-md-6">
+                                <div class="card mb-3 mx-2 mt-3" style="max-width: 500px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            {% set url = 'img/portadas/' + l.portada %}
+                                            <img src="{{ url_for('static', filename=url) }}" alt="{{ l.titulo }}" class="img-fluid rounded-start" style="height: 100%;">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title libros">{{ l.titulo }} <span style="float: right;">$ {{ l.precio }}</span></h5>
+                                                <p class="card-text">{{ l.autor.nombre_completo() }}</p>
+                                                <button id="comprarBtn" class="btn btn-block btnComprarLibro comprarBtn" style="background-color:#38B000; color:#eee;">Comprar</button>
+                                                <input type="hidden" id="login-url" value="{{ url_for('login') }}">
+                                                <input type="hidden" id="register-url" value="{{ url_for('register') }}">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <footer style="background-color: #333; color: #fff; padding: 20px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Información de contacto</h4>
+                    <p>Dirección: 123 Avenida Universidad, Emiliano Zapata, Morelos</p>
+                    <p>Teléfono: +123 456 789</p>
+                    <p>Email: info@swal.com</p>
+                </div>
+                <div class="col-md-6">
+                    <h4> Nos ubicamos</h4>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3775.8286906743588!2d-99.20524161114503!3d18.850283400000013!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cdd8bad2a5ef7d%3A0xddfd0f46aac691ee!2sUniversidad%20Tecnol%C3%B3gica%20Emiliano%20Zapata%20UTEZ!5e0!3m2!1ses-419!2smx!4v1711864583491!5m2!1ses-419!2smx" width="150" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p style="color: #38B000;">&copy; 2024 SWAL. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='lib/sweetalert2-9.10.0/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/notificacionSwal.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/listado_libros.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/busqueda.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/necesario.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/sweetalert2-9.10.0/sweetalert2.all.min.js') }}"></script>
+
+</body>
+</html>
