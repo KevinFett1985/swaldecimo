@@ -238,7 +238,7 @@ import mimetypes
 import os
 from flask import jsonify, request, render_template
 
-UPLOAD_FOLDER = r'C:\Users\HP\PycharmProjects\Integradora_Version_1\app\static\img\portadas'
+UPLOAD_FOLDER = '/home/ubuntu/swaldecimo/app/static/img/portadas'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg','png'}
 
 # Función para verificar extensiones permitidas
