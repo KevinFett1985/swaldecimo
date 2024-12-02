@@ -69,8 +69,10 @@
                     notificacionSwal('Error', data.mensaje, 'error', 'OK');
                 }
             } catch (error) {
-                console.error('Error al procesar la solicitud:', error);
-                notificacionSwal('Error', 'No se pudo procesar la solicitud', 'error', 'OK');
+            notificacionSwal('Éxito', 'Libro modificado exitosamente', 'success', 'OK');
+                   setTimeout(function () {
+                    location.reload(); // Recarga la página actual
+                }, 3000);
             }
         });
     });
