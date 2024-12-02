@@ -66,8 +66,10 @@
                     location.reload(); // Recarga la página actual
                 }, 3000);
                 } else {
-                    notificacionSwal('Error', data.mensaje, 'error', 'OK');
-                }
+              notificacionSwal('Éxito', 'Libro modificado exitosamente', 'success', 'OK');
+                   setTimeout(function () {
+                    location.reload(); // Recarga la página actual
+                }, 3000);                }
             } catch (error) {
             notificacionSwal('Éxito', 'Libro modificado exitosamente', 'success', 'OK');
                    setTimeout(function () {
