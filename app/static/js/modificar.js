@@ -86,7 +86,7 @@ function validarExpresionesRegulares(titulo, ISBN, precio, autor, apellido, desc
     const regexPrecio = /^\d+(\.\d{1,2})?$/; // Permitimos hasta 2 decimales
     const regexAutor = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ'`\-.\s]+$/;
     const regexApellido = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ'`\-.\s]+$/;
-    const regexDescripcion = /^[a-zA-Z0-9\s,.\-()'"!?¿¡:;#&%+@]{10,500}$/;
+    const regexDescripcion = /^[\w\s.,\-()'"]{10,500}$/;
 
     if (!regexTitulo.test(titulo)) {
         Swal.fire({ icon: "error", title: "Oops...", text: "Título inválido" });
