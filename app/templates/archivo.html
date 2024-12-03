@@ -5,7 +5,7 @@
 {% block customCSS %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <!-- CSS --><!-- JS -->
-    
+
 
 {% endblock %}
 
@@ -175,7 +175,7 @@
                                             <td style="border-color: #38B000;">  {% set url = 'img/portadas/' + l.portada %}
                                                 <img class="img-fluid rounded-start"
                                                      src="{{ url_for('static', filename=url) }}"
-                                                     style="width: 100px; height: auto;" alt="{{ l.titulo }}"></td>
+                                                     style="width: 80px; height: 100px;" alt="{{ l.titulo }}"></td>
 
                                             <td style="border-color: #38B000;">
                                                 <!-- Botón para activar el modal -->
@@ -381,6 +381,5 @@
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
 {% endblock %}
-
 
 
